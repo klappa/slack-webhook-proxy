@@ -1,0 +1,24 @@
+{
+  "name": "slack-webhook-proxy",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "netlify-lambda serve lambda",
+    "build": "netlify-lambda build lambda",
+    "postinstall": "netlify-lambda install"
+  },
+  "dependencies": {
+    "@slack/web-api": "^5.7.0",
+    "dotenv": "^8.2.0",
+    "netlify-lambda": "^1.6.3",
+    "typescript": "^3.7.5"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.8.3"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "singleQuote": true
+  }
+}
