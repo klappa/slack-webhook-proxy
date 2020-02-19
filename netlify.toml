@@ -7,10 +7,5 @@
   to = "/.netlify/functions/post-to-slack"
   status = 200
 
-[[headers]]
-  for = "/*"
-  [headers.values]
-  Access-Control-Allow-Origin = "*"
-
 [template.environment]
   SLACK_TOKEN = "slack token for your app"

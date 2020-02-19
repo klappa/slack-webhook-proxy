@@ -8,17 +8,22 @@ const token = process.env.SLACK_TOKEN;
 // initialize slack web client
 const web = new WebClient(token);
 
+const headers = {
+  'Access-Control-Allow-Origin': '*',
+};
+
 export const handler = async (event: any) => {
-  console.log(event);
   // CORS is handled in netlify.toml
   // this is just to provide a prettier response
   if (event.httpMethod === 'OPTIONS') {
     return {
+      headers,
       statusCode: 200,
     };
   }
   if (event.httpMethod !== 'POST') {
     return {
+      headers,
       statusCode: 405,
       body: `Method Not Allowed. Only POST is allowed.`,
     };
@@ -35,6 +40,7 @@ export const handler = async (event: any) => {
     ...rest,
   });
   return {
+    headers,
     statusCode: 200,
     body: JSON.stringify({
       message: `Message sent to #${channel}`,
