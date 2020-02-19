@@ -13,8 +13,7 @@ const headers = {
 };
 
 export const handler = async (event: any) => {
-  // CORS is handled in netlify.toml
-  // this is just to provide a prettier response
+  // CORS
   if (event.httpMethod === 'OPTIONS') {
     return {
       headers,
