@@ -9,15 +9,11 @@ const token = process.env.SLACK_TOKEN;
 const web = new WebClient(token);
 
 export const handler = async (event: any) => {
-  // CORS
+  // CORS is handled in netlify.toml
+  // this is just to provide a prettier response
   if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers':
-          'Origin, X-Requested-With, Content-Type, Accept',
-      },
       body: JSON.stringify({ message: 'You can use CORS' }),
     };
   }
