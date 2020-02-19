@@ -2,5 +2,10 @@
   command = "yarn build"
   functions = "dist"
 
+[[redirects]]
+  from = "/"
+  to = "/.netlify/functions/post-to-slack"
+  status = 200
+
 [template.environment]
   SLACK_TOKEN = "slack token for your app"
