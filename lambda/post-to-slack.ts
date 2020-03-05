@@ -13,36 +13,46 @@ const headers = {
 };
 
 export const handler = async (event: any) => {
-  // CORS
-  if (event.httpMethod === 'OPTIONS') {
+  try {
+    // CORS
+    if (event.httpMethod === 'OPTIONS') {
+      return {
+        headers,
+        statusCode: 200,
+      };
+    }
+    if (event.httpMethod !== 'POST') {
+      return {
+        headers,
+        statusCode: 405,
+        body: `Method Not Allowed. Only POST is allowed.`,
+      };
+    }
+
+    const { channel: rawChannel, ...rest } = JSON.parse(event.body);
+
+    // clean channel name from unwanted characters
+    const channel = rawChannel.replace(/[\s#]/g, '');
+
+    // send the message
+    await web.chat.postMessage({
+      channel,
+      ...rest,
+    });
     return {
       headers,
       statusCode: 200,
+      body: JSON.stringify({
+        message: `Message sent to #${channel}`,
+      }),
     };
-  }
-  if (event.httpMethod !== 'POST') {
+  } catch (e) {
+    console.log(e);
+    console.log('Event failed:', event);
     return {
       headers,
-      statusCode: 405,
-      body: `Method Not Allowed. Only POST is allowed.`,
+      statusCode: 500,
+      body: 'Something went wrong, please check your request and try again!',
     };
   }
-
-  const { channel: rawChannel, ...rest } = JSON.parse(event.body);
-
-  // clean channel name from unwanted characters
-  const channel = rawChannel.replace(/[\s#]/g, '');
-
-  // send the message
-  await web.chat.postMessage({
-    channel,
-    ...rest,
-  });
-  return {
-    headers,
-    statusCode: 200,
-    body: JSON.stringify({
-      message: `Message sent to #${channel}`,
-    }),
-  };
 };
