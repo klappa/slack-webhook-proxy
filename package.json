@@ -9,7 +9,7 @@
     "postinstall": "netlify-lambda install"
   },
   "dependencies": {
-    "@slack/web-api": "^5.8.0",
+    "@slack/web-api": "^6.0.0",
     "dotenv": "^8.2.0",
     "netlify-lambda": "^1.6.3"
   },
